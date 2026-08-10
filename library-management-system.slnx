@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/cli/">
+    <Project Path="cli/Lms.Cli.csproj" />
+  </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/Lms.Core/Lms.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Lms.Core.Tests/Lms.Core.Tests.csproj" />
+  </Folder>
+</Solution>
