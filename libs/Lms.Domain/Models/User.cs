@@ -1,11 +1,11 @@
-namespace Lms.Core.Models;
+namespace Lms.Domain.Models;
 
-public class Users
+public class User
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string DisplayName => $"{FirstName} {LastName}";
-    public List <Books> BorrowedBooks { get; set; } = new();
+    public List <Book> BorrowedBooks { get; set; } = new();
     
 }
