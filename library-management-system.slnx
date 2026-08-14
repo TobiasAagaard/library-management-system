@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/cli/">
-    <Project Path="cli/Lms.Cli.csproj" />
-  </Folder>
   <Folder Name="/libs/">
     <Project Path="libs/Lms.Domain/Lms.Domain.csproj" />
   </Folder>
