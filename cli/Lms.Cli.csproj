@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\libs\Lms.Core\Lms.Core.csproj" />
+    <ProjectReference Include="..\libs\Lms.Domain\Lms.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

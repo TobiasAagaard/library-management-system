@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lms.Core.Tests</RootNamespace>
+    <RootNamespace>Lms.Domain.Tests</RootNamespace>
     <TargetFramework>net10.0</TargetFramework>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
   </PropertyGroup>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\Lms.Core\Lms.Core.csproj" />
+    <ProjectReference Include="..\..\libs\Lms.Domain\Lms.Domain.csproj" />
   </ItemGroup>
 
 </Project>

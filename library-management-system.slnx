@@ -3,9 +3,9 @@
     <Project Path="cli/Lms.Cli.csproj" />
   </Folder>
   <Folder Name="/libs/">
-    <Project Path="libs/Lms.Core/Lms.Core.csproj" />
+    <Project Path="libs/Lms.Domain/Lms.Domain.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Lms.Core.Tests/Lms.Core.Tests.csproj" />
+    <Project Path="tests/Lms.Domain.Tests/Lms.Domain.Tests.csproj" />
   </Folder>
 </Solution>
