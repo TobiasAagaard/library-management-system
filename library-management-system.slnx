@@ -4,6 +4,7 @@
   </Folder>
   <Folder Name="/libs/">
     <Project Path="libs/Lms.Domain/Lms.Domain.csproj" />
+    <Project Path="libs/Lms.Infrastructure/Lms.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Lms.Domain.Tests/Lms.Domain.Tests.csproj" />
