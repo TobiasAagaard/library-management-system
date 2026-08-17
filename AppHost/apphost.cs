@@ -6,7 +6,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var db = builder
     .AddPostgres("postgres")
-    .WithDataVolume();
+    .WithDataVolume()
+    .WithPgAdmin();
 
 db.AddDatabase("lmsdb");
 
