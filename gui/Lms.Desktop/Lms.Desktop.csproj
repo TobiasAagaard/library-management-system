@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="appsettings.*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\libs\Lms.Domain\Lms.Domain.csproj" />
+    <ProjectReference Include="..\..\libs\Lms.Infrastructure\Lms.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

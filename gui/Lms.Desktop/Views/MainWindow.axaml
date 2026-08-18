@@ -17,6 +17,7 @@
     <StackPanel Margin="24" Spacing="8">
         <TextBlock Text="{Binding LibraryName}" FontSize="24" FontWeight="SemiBold" />
         <TextBlock Text="{Binding BookCount}" Opacity="0.6" />
+        <TextBlock Text="{Binding DatabaseStatus}" Opacity="0.6" />
     </StackPanel>
 
 </Window>

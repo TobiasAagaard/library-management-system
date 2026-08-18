@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Lms.Desktop.ViewModels;
 using Lms.Desktop.Views;
+using Lms.Infrastructure.Database;
 
 namespace Lms.Desktop;
 
@@ -17,9 +18,12 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var database = DatabaseConnection.FromConfiguration();
+            desktop.Exit += (_, _) => database.Dispose();
+
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(),
+                DataContext = new MainViewModel(database),
             };
         }
 

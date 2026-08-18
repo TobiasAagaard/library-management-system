@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Lms.Domain.Models;
+using Lms.Infrastructure.Database;
 
 namespace Lms.Desktop.ViewModels;
 
@@ -8,7 +10,15 @@ public partial class MainViewModel : ViewModelBase
 {
     private readonly Library _library;
 
-    public MainViewModel()
+    [ObservableProperty]
+    private string _databaseStatus = "Not connected";
+
+    public MainViewModel() : this(null)
+    {
+        
+    }
+
+    public MainViewModel(DatabaseConnection? database)
     {
         _library = new Library
         {
@@ -21,9 +31,20 @@ public partial class MainViewModel : ViewModelBase
                 new Book { Id = 3, Title = "Book 3", Author = "Author 3" }
             }
         };
+
+        if (database is not null)
+        {
+            _ = ShowDatabaseStatusAsync(database);
+        }
     }
 
     public string LibraryName => _library.Name;
 
     public int BookCount => _library.Books.Count;
+
+    private async Task ShowDatabaseStatusAsync(DatabaseConnection database)
+    {
+        DatabaseStatus = "Connecting…";
+        DatabaseStatus = await database.CanConnectAsync() ? "Connected to database" : "Could not reach the database";
+    }
 }

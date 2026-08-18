@@ -9,10 +9,10 @@ var db = builder
     .WithDataVolume()
     .WithPgAdmin();
 
-db.AddDatabase("lmsdb");
+var lmsdb = db.AddDatabase("lmsdb");
 
 builder.AddProject<Projects.Lms_Desktop>("desktop")
-    .WithReference(db)
-    .WaitFor(db);
+    .WithReference(lmsdb)
+    .WaitFor(lmsdb);
 
 builder.Build().Run();
