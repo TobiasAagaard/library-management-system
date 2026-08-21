@@ -6,6 +6,6 @@ public class User
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string DisplayName => $"{FirstName} {LastName}";
-    public List <Book> BorrowedBooks { get; set; } = new();
+    public ICollection<Book> BorrowedBooks { get; set; } = new List<Book>();
     
 }
