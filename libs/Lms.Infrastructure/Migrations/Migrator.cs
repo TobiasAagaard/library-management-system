@@ -9,9 +9,7 @@ namespace Lms.Infrastructure.Migrations;
 public static class Migrator
 {
 
-
-    // "0001_initial.sql".
-    private const string ScriptNamespace = $"{nameof(Migrations)}.Scripts.";
+    private static readonly string ScriptNamespace = $"{typeof(Migrator).Namespace}.Scripts.";
 
     public static void MigrateDatabase()
     {
