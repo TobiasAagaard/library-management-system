@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/desktop/">
+    <Project Path="desktop/Lms.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/Lms.Application/Lms.Application.csproj" />
+  </Folder>
+</Solution>
