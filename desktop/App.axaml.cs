@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Lms.Desktop.ViewModels;
@@ -6,7 +5,7 @@ using Lms.Desktop.Views;
 
 namespace Lms.Desktop;
 
-public partial class App : Application
+public partial class App : Avalonia.Application
 {
     public override void Initialize()
     {
