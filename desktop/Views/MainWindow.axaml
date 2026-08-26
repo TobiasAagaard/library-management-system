@@ -10,21 +10,51 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Lms.Desktop">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
+    <DockPanel Margin="20" LastChildFill="True">
 
-    <StackPanel Margin="20" Spacing="10">
-        <TextBlock Text="{Binding Library.Name}" FontSize="20" FontWeight="Bold" />
-        <ItemsControl ItemsSource="{Binding Library.Books}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="models:Book">
-                    <TextBlock Text="{Binding Title}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding Library.Name}"
+                   FontSize="20" FontWeight="Bold"
+                   Margin="0,0,0,10" />
+
+        <StackPanel Spacing="8" Width="400" HorizontalAlignment="Left">
+            <TextBlock Text="New book" FontWeight="SemiBold" />
+            <TextBox PlaceholderText="Title" Text="{Binding NewBookTitle}" />
+            <TextBox PlaceholderText="ISBN" Text="{Binding NewBookIsbn}" />
+            <Grid ColumnDefinitions="*,8,*">
+                <TextBox Grid.Column="0" PlaceholderText="Author first name" Text="{Binding NewAuthorFirstName}" />
+                <TextBox Grid.Column="2" PlaceholderText="Author last name" Text="{Binding NewAuthorLastName}" />
+            </Grid>
+            <Button Content="Add book"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddBookCommand}" />
+        </StackPanel>
+
+
+        <TextBlock DockPanel.Dock="Top" Text="Books" FontWeight="SemiBold" Margin="0,0,0,6" />
+
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Books}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Book">
+                        <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="4,6">
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding ISBN}" Opacity="0.7" FontSize="12" />
+                                <ItemsControl ItemsSource="{Binding Authors}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Author">
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="12" Opacity="0.7" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
 
 </Window>

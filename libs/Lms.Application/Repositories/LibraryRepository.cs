@@ -27,4 +27,20 @@ public class LibraryRepository : ILibraryRepository
         _libraries.Add(library);
         return await Task.FromResult(library);
     }
+
+    public async Task<Library> UpdateLibraryAsync(Library library)
+    {
+        var existingLibrary = _libraries.FirstOrDefault(l => l.Id == library.Id);
+
+        if (existingLibrary == null)
+        {
+            throw new KeyNotFoundException($"Library with ID {library.Id} not found.");
+        }
+
+        existingLibrary.Name = library.Name;
+        existingLibrary.Users = library.Users;
+        existingLibrary.Books = library.Books;
+
+        return await Task.FromResult(existingLibrary);
+    }
 }
