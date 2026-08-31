@@ -4,11 +4,12 @@
         xmlns:models="using:Lms.Application.Models"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
         x:Class="Lms.Desktop.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Lms.Desktop">
+        Width="1000" Height="600"
+        Title="Library Management System">
 
     <DockPanel Margin="20" LastChildFill="True">
 
@@ -17,43 +18,102 @@
                    FontSize="20" FontWeight="Bold"
                    Margin="0,0,0,10" />
 
-        <StackPanel Spacing="8" Width="400" HorizontalAlignment="Left">
-            <TextBlock Text="New book" FontWeight="SemiBold" />
-            <TextBox PlaceholderText="Title" Text="{Binding NewBookTitle}" />
-            <TextBox PlaceholderText="ISBN" Text="{Binding NewBookIsbn}" />
-            <Grid ColumnDefinitions="*,8,*">
-                <TextBox Grid.Column="0" PlaceholderText="Author first name" Text="{Binding NewAuthorFirstName}" />
-                <TextBox Grid.Column="2" PlaceholderText="Author last name" Text="{Binding NewAuthorLastName}" />
-            </Grid>
-            <Button Content="Add book"
-                    HorizontalAlignment="Right"
-                    Command="{Binding AddBookCommand}" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,12">
+            <TextBlock Text="Current user:" VerticalAlignment="Center" />
+            <ComboBox ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser}"
+                      MinWidth="220">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <TextBlock Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
 
+        <TextBlock DockPanel.Dock="Bottom"
+                   Text="{Binding StatusMessage}"
+                   Opacity="0.8"
+                   Margin="0,10,0,0" />
 
-        <TextBlock DockPanel.Dock="Top" Text="Books" FontWeight="SemiBold" Margin="0,0,0,6" />
+        <Grid ColumnDefinitions="2*,20,2*,20,*">
 
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Books}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="models:Book">
-                        <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="4,6">
-                            <StackPanel Spacing="2">
-                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
-                                <TextBlock Text="{Binding ISBN}" Opacity="0.7" FontSize="12" />
-                                <ItemsControl ItemsSource="{Binding Authors}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate x:DataType="models:Author">
-                                            <TextBlock Text="{Binding DisplayName}" FontSize="12" Opacity="0.7" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+            <!-- All books -->
+            <DockPanel Grid.Column="0">
+                <TextBlock DockPanel.Dock="Top" Text="All books" FontWeight="SemiBold" Margin="0,0,0,6" />
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding Books}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Book">
+                                <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="4,6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <StackPanel Grid.Column="0" Spacing="2">
+                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding ISBN}" Opacity="0.7" FontSize="12" />
+                                            <ItemsControl ItemsSource="{Binding Authors}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:Author">
+                                                        <TextBlock Text="{Binding DisplayName}" FontSize="12" Opacity="0.7" />
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <TextBlock Text="Not available"
+                                                       FontSize="12" Foreground="OrangeRed"
+                                                       IsVisible="{Binding !IsAvailable}" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1"
+                                                Content="Loan"
+                                                VerticalAlignment="Center"
+                                                IsEnabled="{Binding IsAvailable}"
+                                                Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).LoanBookCommand}"
+                                                CommandParameter="{Binding}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+
+            <!-- Borrowed books for selected user -->
+            <DockPanel Grid.Column="2">
+                <TextBlock DockPanel.Dock="Top" Text="My borrowed books" FontWeight="SemiBold" Margin="0,0,0,6" />
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding BorrowedBooks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Book">
+                                <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="4,6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <StackPanel Grid.Column="0" Spacing="2">
+                                            <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding ISBN}" Opacity="0.7" FontSize="12" />
+                                        </StackPanel>
+                                        <Button Grid.Column="1"
+                                                Content="Return"
+                                                VerticalAlignment="Center"
+                                                Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).ReturnBookCommand}"
+                                                CommandParameter="{Binding}" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+
+            <!-- Add new book -->
+            <StackPanel Grid.Column="4" Spacing="8">
+                <TextBlock Text="New book" FontWeight="SemiBold" />
+                <TextBox PlaceholderText="Title" Text="{Binding NewBookTitle}" />
+                <TextBox PlaceholderText="ISBN" Text="{Binding NewBookIsbn}" />
+                <TextBox PlaceholderText="Author first name" Text="{Binding NewAuthorFirstName}" />
+                <TextBox PlaceholderText="Author last name" Text="{Binding NewAuthorLastName}" />
+                <Button Content="Add book"
+                        HorizontalAlignment="Right"
+                        Command="{Binding AddBookCommand}" />
+            </StackPanel>
+
+        </Grid>
 
     </DockPanel>
 

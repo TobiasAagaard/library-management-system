@@ -40,7 +40,6 @@ public class BookRepository : IBookRepository
 
         existingBook.Title = book.Title;
         existingBook.ISBN = book.ISBN;
-        existingBook.IsAvailable = book.IsAvailable;
         existingBook.Authors = book.Authors;
 
         return await Task.FromResult(existingBook);

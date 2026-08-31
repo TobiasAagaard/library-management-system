@@ -5,4 +5,7 @@
   <Folder Name="/libs/">
     <Project Path="libs/Lms.Application/Lms.Application.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="Lms.Tests/Lms.Tests.csproj" />
+  </Folder>
 </Solution>
