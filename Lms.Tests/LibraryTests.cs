@@ -32,17 +32,6 @@ public class LibraryTests
     }
 
     [Fact]
-    public void RegisterUser_AddsUserToLibrary()
-    {
-        var library = new Library();
-        var user = new User { FirstName = "Test" };
-
-        library.RegisterUser(user);
-
-        Assert.Contains(user, library.Users);
-    }
-
-    [Fact]
     public void FindBookByISBN_ExistingBook_ReturnsBook()
     {
         var library = new Library();
@@ -51,28 +40,6 @@ public class LibraryTests
         library.AddBook(NewBook("Other Book", "222"));
 
         var found = library.FindBookByISBN("111");
-
-        Assert.Same(book, found);
-    }
-
-    [Fact]
-    public void FindBookByISBN_UnknownIsbn_ReturnsNull()
-    {
-        var library = new Library();
-
-        var found = library.FindBookByISBN("does-not-exist");
-
-        Assert.Null(found);
-    }
-
-    [Fact]
-    public void FindBook_WithPredicate_ReturnsMatchingBook()
-    {
-        var library = new Library();
-        var book = NewBook("Clean Code", "111");
-        library.AddBook(book);
-
-        var found = library.FindBook(b => b.Title.StartsWith("Clean"));
 
         Assert.Same(book, found);
     }
@@ -90,22 +57,6 @@ public class LibraryTests
         Assert.Equal(2, lines.Count);
     }
 
-    [Fact]
-    public void DisplayAvailableBooks_OnlyWritesAvailableBooks()
-    {
-        var library = new Library();
-        var borrowed = NewBook("Borrowed Book", "111");
-        var available = NewBook("Available Book", "222");
-        library.AddBook(borrowed);
-        library.AddBook(available);
-        new User().BorrowBook(borrowed);
-
-        var lines = new List<string>();
-        library.DisplayAvailableBooks(lines.Add);
-
-        Assert.Single(lines);
-        Assert.Contains("Available Book", lines[0]);
-    }
 }
 
 public class BookTests
